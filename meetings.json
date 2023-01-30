@@ -1,0 +1,25 @@
+[
+    {
+        "date": "January 30",
+        "theme": "1 CHRONICLES 7-9",
+        "chairman": "Hal Jordan",
+        "opening_song": "58",
+        "opening_talk": ["Talk theme", "Steve Rogers"],
+        "spiritual_gems": "Barry Allen",
+        "bible_reading": "Tony Stark",
+        "initial_call": ["Barbara Gordon", "Gwen Stacy"],
+        "return_visit": ["Natasha Romanoff", "Jean Grey"],
+        "bible_study": ["Selina Kyle", "Mary Jane Watson"],
+        "talk": "Bruce Banner",
+        "middle_song": 78,
+        "living_as_christians": {
+            "Local Needs": "James Howlett"
+        },
+        "congregation_bible_study": {
+            "conductor": "Bruce Wayne",
+            "reader": "Clark Kent"
+        },
+        "closing_song": 23,
+        "closing_prayer": "Peter Parker"
+    }
+]
