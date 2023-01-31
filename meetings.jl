@@ -1,10 +1,21 @@
 using JSON
+using Printf
 using Hyperscript
+using Dates
+
+start = Dates.DateTime(2023, 2, 1, 19, 15)
+
+function time(duration)
+    current = start;
+    global start = start + Dates.Minute(duration)
+    return Dates.format(current, "HH:MM")
+end
 
 @tags table tr td
 
 json_file = open("meetings.json")
 meetings = JSON.parse(json_file)
+close(json_file)
 
 for meeting in meetings
     doc = table(
@@ -15,101 +26,93 @@ for meeting in meetings
             td(meeting["chairman"])
         ]),
         tr([
-            td("19:45"),
-            td("Song 90"),
-            td("Prayer"),
-            td("Hal Jordan")
+            td(time(5)),
+            td(@sprintf "Song %s" meeting["opening_song"]; :colspan => 3)
         ]),
         tr([
-            td("19:50 "),
-            td("Opening Comments (1 min)"; :colspan => "3")
+            td(time(1)),
+            td("Opening Comments (1 min)"; :colspan => 3)
         ]),
         tr([
-            td("TREASURES FROM GOD'S WORD"; :colspan => "4")
+            td("TREASURES FROM GOD'S WORD"; :colspan => 4)
         ]),
         tr([
-            td("19:51"),
-            td("Talk themes (10 min.)"; :colspan => "2"),
-            td("Steve Rogers"),
+            td(time(10)),
+            td(@sprintf "%s (10 min.)" meeting["opening_talk"][1]; :colspan => 2),
+            td(meeting["opening_talk"][2]),
         ]),
         tr([
-            td("20:01"),
-            td("Spiritual Gems (10 min.)"; :colspan => "2"),
-            td("Barry Allen"),
+            td(time(10)),
+            td("Spiritual Gems (10 min.)"; :colspan => 2),
+            td(meeting["spiritual_gems"]),
         ]),
         tr([
-            td("20:11 "),
-            td(" Bible Reading (4 min) "),
+            td(time(4)),
+            td("Bible Reading (4 min)"),
             td("Student"),
-            td("Tony Stark"),
+            td(meeting["bible_reading"]),
         ]),
         tr([
-            td("APPLY YOURSELF TO THE FIELD MINISTRY"; :colspan => "4")
+            td("APPLY YOURSELF TO THE FIELD MINISTRY"; :colspan => 4)
         ]),
         tr([
-            td("20:15"; :rowspan => "2"),
-            td("Initial Call"; :rowspan => "2"),
+            td(time(3); :rowspan => 2),
+            td("Initial Call"; :rowspan => 2),
             td("Student"),
-            td("Barbara Gordon"),
+            td(meeting["initial_call"][1]),
         ]),
         tr([
             td("Helper"),
-            td("Gwen Stacy"),
+            td(meeting["initial_call"][2]),
         ]),
         tr([
-            td("20:15"; :rowspan => "2"),
-            td("Return Visit"; :rowspan => "2"),
+            td(time(4); :rowspan => 2),
+            td("Return Visit"; :rowspan => 2),
             td("Student"),
-            td("Natasha Romanoff"),
+            td(meeting["return_visit"][1]),
         ]),
         tr([
             td("Helper"),
-            td("Jean Grey"),
+            td(meeting["return_visit"][2]),
         ]),
         tr([
-            td("20:15"; :rowspan => "2"),
-            td("Bible Study"; :rowspan => "2"),
+            td(time(5); :rowspan => 2),
+            td("Bible Study"; :rowspan => 2),
             td("Student"),
-            td("Selina Kyle"),
+            td(meeting["bible_study"][1]),
         ]),
         tr([
             td("Helper"),
-            td("Mary Jane Watson"),
+            td(meeting["bible_study"][2]),
         ]),
         tr([
-            td("LIVING AS CHRISTIANS"; :colspan => "4")
+            td("LIVING AS CHRISTIANS"; :colspan => 4)
         ]),
         tr([
-            td("20:30"),
-            td("Song 107"; :colspan => "3")
+            td(time(5)),
+            td(@sprintf "Song %s" meeting["middle_song"]; :colspan => 3)
         ]),
+        [tr([td(time(10)), td(theme; :colspan => 2), td(conductor)]) for (theme, conductor) in meeting["living_as_christians"]],
         tr([
-            td("20:35"),
-            td("Local Needs"; :colspan => "2"),
-            td("James Howlett"),
-        ]),
-        tr([
-            td("20:50"; :rowspan => "2"),
-            td("Congregation Bible Study (30 min.)"; :rowspan => "2"),
+            td(time(30); :rowspan => 2),
+            td("Congregation Bible Study (30 min.)"; :rowspan => 2),
             td("Conductor"),
-            td("Bruce Wayne"),
+            td(meeting["congregation_bible_study"]["conductor"]),
         ]),
         tr([
             td("Reader"),
-            td("Clark Kent"),
+            td(meeting["congregation_bible_study"]["reader"]),
         ]),
         tr([
-            td("21:20"),
-            td("Concluding Comments (3 min)"; :colspan => "3")
+            td(time(1)),
+            td("Concluding Comments (3 min)"; :colspan => 3)
         ]),
         tr([
-            td("21:22"),
-            td("Song 2 "),
+            td(time(5)),
+            td(@sprintf "Song %s" meeting["closing_song"]),
             td("Prayer"),
-            td("Peter Parker"),
-        ])
+            td(meeting["closing_prayer"]),
+        ]); :border => 1
     )
     savehtml("test.html", doc);
 end
-
-close(json_file)
