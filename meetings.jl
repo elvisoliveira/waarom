@@ -46,8 +46,8 @@ for meeting in meetings
         ]),
         tr([
             td(time(10)),
-            td(meeting["opening_talk"][1]; :colspan => 2),
-            td(meeting["opening_talk"][2]),
+            td(meeting["opening_talk"]["theme"]; :colspan => 2),
+            td(meeting["opening_talk"]["speaker"]),
         ]),
         tr([
             td(time(10)),
@@ -58,7 +58,7 @@ for meeting in meetings
             td(time(4)),
             td(_"Bible Reading"),
             td(_"Student"),
-            td(meeting["bible_reading"]),
+            td(meeting["bible_reading"]["reader"]),
         ]),
         tr([
             td(_"APPLY YOURSELF TO THE FIELD MINISTRY"; :colspan => 4)
@@ -67,31 +67,31 @@ for meeting in meetings
             td(time(3); :rowspan => 2),
             td(_"Initial Call"; :rowspan => 2),
             td(_"Student"),
-            td(meeting["initial_call"][1]),
+            td(meeting["initial_call"]["student"]),
         ]),
         tr([
             td(_"Helper"),
-            td(meeting["initial_call"][2]),
+            td(meeting["initial_call"]["assistant"]),
         ]),
         tr([
             td(time(4); :rowspan => 2),
             td(_"Return Visit"; :rowspan => 2),
             td(_"Student"),
-            td(meeting["return_visit"][1]),
+            td(meeting["return_visit"]["student"]),
         ]),
         tr([
             td(_"Helper"),
-            td(meeting["return_visit"][2]),
+            td(meeting["return_visit"]["assistant"]),
         ]),
         tr([
             td(time(5); :rowspan => 2),
             td(_"Bible Study"; :rowspan => 2),
             td(_"Student"),
-            td(meeting["bible_study"][1]),
+            td(meeting["bible_study"]["student"]),
         ]),
         tr([
             td(_"Helper"),
-            td(meeting["bible_study"][2]),
+            td(meeting["bible_study"]["assistant"]),
         ]),
         tr([
             td(_"LIVING AS CHRISTIANS"; :colspan => 4)
@@ -100,7 +100,7 @@ for meeting in meetings
             td(time(5)),
             td(@sprintf "Song %s" meeting["middle_song"]; :colspan => 3)
         ]),
-        [tr([td(time(10)), td(theme; :colspan => 2), td(conductor)]) for (theme, conductor) in meeting["living_as_christians"]],
+        [tr([td(time(part["time"])), td(part["theme"]; :colspan => 2), td(part["speaker"])]) for (part) in meeting["living_as_christians"]],
         tr([
             td(time(30); :rowspan => 2),
             td(_"Congregation Bible Study"; :rowspan => 2),

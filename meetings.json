@@ -3,18 +3,45 @@
         "date": "January 30",
         "theme": "1 CHRONICLES 7-9",
         "chairman": "Hal Jordan",
-        "opening_song": "58",
-        "opening_talk": ["Talk theme", "Steve Rogers"],
-        "spiritual_gems": "Barry Allen",
-        "bible_reading": "Tony Stark",
-        "initial_call": ["Barbara Gordon", "Gwen Stacy"],
-        "return_visit": ["Natasha Romanoff", "Jean Grey"],
-        "bible_study": ["Selina Kyle", "Mary Jane Watson"],
-        "talk": "Bruce Banner",
-        "middle_song": 78,
-        "living_as_christians": {
-            "Local Needs": "James Howlett"
+        "opening_song": 58,
+        "opening_talk": {
+            "theme": "Talk theme",
+            "speaker": "Steve Rogers"
         },
+        "spiritual_gems": "Barry Allen",
+        "bible_reading": {
+            "assignment": "",
+            "reader": "Tony Stark"
+        },
+        "initial_call": {
+            "student": "Barbara Gordon",
+            "assistant": "Gwen Stacy"
+        },
+        "return_visit": {
+            "student": "Natasha Romanoff",
+            "assistant": "Jean Grey"
+        },
+        "bible_study": {
+            "student": "Selina Kyle",
+            "assistant": "Mary Jane Watson"
+        },
+        "talk": {
+            "theme": "Talk theme",
+            "speaker": "Bruce Banner"
+        },
+        "middle_song": 78,
+        "living_as_christians": [
+            {
+                "time": 10,
+                "theme": "Local Needs",
+                "speaker": "James Howlett"
+            },
+            {
+                "time": 10,
+                "theme": "Local Needs",
+                "speaker": "Eddie Brock"
+            }
+        ],
         "congregation_bible_study": {
             "conductor": "Bruce Wayne",
             "reader": "Clark Kent"
