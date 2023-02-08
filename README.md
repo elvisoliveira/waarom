@@ -9,5 +9,5 @@ LANGUAGE=pt_BR julia meetings.jl
 To install the dependencies
 
 ```
-julia -e "import Pkg; Pkg.add(\"Gettext\"); Pkg.add(\"JSON\"); Pkg.add(\"Printf\"); Pkg.add(\"Hyperscript\"); Pkg.add(\"Dates\"); Pkg.add(\"Gettext\")"
+julia --project=. -e "import Pkg; Pkg.instantiate()"
 ```
