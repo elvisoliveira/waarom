@@ -102,30 +102,33 @@ for meeting in schedule["meetings"]
             td(_"LIVING AS CHRISTIANS"; :colspan => 4)
         ]),
         tr([
-            td(time(5)),
-            td(@sprintf "Song %s" meeting["middle_song"]; :colspan => 3)
-        ]),
-        [tr([td(time(part["time"])), td(part["theme"]; :colspan => 2), td(part["speaker"])]) for (part) in meeting["living_as_christians"]],
-        tr([
-            td(time(30); :rowspan => 2),
-            td(_"Congregation Bible Study"; :rowspan => 2),
-            td(_"Conductor"),
-            td(meeting["congregation_bible_study"]["conductor"]),
-        ]),
-        tr([
-            td(_"Reader"),
-            td(meeting["congregation_bible_study"]["reader"]),
-        ]),
-        tr([
-            td(time(1)),
-            td(_"Concluding Comments"; :colspan => 3)
-        ]),
-        tr([
-            td(time(5)),
-            td(@sprintf "Song %s" meeting["closing_song"]),
-            td(_"Prayer"),
-            td(meeting["closing_prayer"]),
-        ]); :border => 1
-    )
-    savehtml("test.html", doc);
+            time(5),
+            td(@sprintf "%s: %s" _"Song" string(meeting["closing_song"]); :colspan => 3),
+            td(_"Prayer", class="title"),
+            td(meeting["closing_prayer"], class="assigned"),
+        ]), class="meeting"
+    ))
 end
+
+savehtml("schedule.html", html(
+    head(
+        link(href="style.css", rel="stylesheet"),
+        link(href="https://fonts.googleapis.com/css?family=Fira+Sans|Open+Sans|Oranienbaum", rel="stylesheet"),
+        style(
+            css("@page", margin="5mm")
+        ),
+        title(_"Midweek Meeting Schedule")
+    ),
+    body(
+        table(
+            thead(
+                tr(td(_"Midweek Meeting Schedule")),
+                tr(td(schedule["congregation"])),
+                tr(td(hr()))
+            ),
+            tbody(
+                [tr([td(meeting)]) for (meeting) in meetings]
+            ), class="schedule"
+        )
+    )
+))
