@@ -33,73 +33,86 @@ for meeting in schedule["meetings"]
     global start = Time(parse(Int64, hour), parse(Int64, min), 00)
     push!(meetings, table(
         tr([
-            td(meeting["date"]),
-            td(meeting["theme"]),
-            td(_"Chairman"),
-            td(meeting["chairman"])
+            td(@sprintf "%s | %s" meeting["date"] meeting["theme"]; :colspan => 4, class="label"),
+            td(_"Chairman", class="title"),
+            td(meeting["chairman"], class="assigned")
         ]),
         tr([
-            td(time(5)),
-            td(@sprintf "Song %s" meeting["opening_song"]; :colspan => 3)
+            time(5),
+            td(@sprintf "%s: %s" _"Song" string(meeting["opening_song"]); :colspan => 5)
         ]),
         tr([
-            td(time(1)),
-            td(_"Opening Comments"; :colspan => 3)
+            time(1),
+            td(_"Opening Comments"; :colspan => 5)
         ]),
         tr([
-            td(_"TREASURES FROM GOD'S WORD"; :colspan => 4)
+            td(img(src="treasures.svg"))
+            td(span(_"TREASURES FROM GOD'S WORD"); :colspan => 5)
+        ], class="treasures"),
+        tr([
+            time(10),
+            td(meeting["opening_talk"]["theme"]; :colspan => 4),
+            td(meeting["opening_talk"]["speaker"], class="assigned"),
         ]),
         tr([
-            td(time(10)),
-            td(meeting["opening_talk"]["theme"]; :colspan => 2),
-            td(meeting["opening_talk"]["speaker"]),
+            time(10),
+            td(_"Spiritual Gems"; :colspan => 4),
+            td(meeting["spiritual_gems"], class="assigned"),
         ]),
         tr([
-            td(time(10)),
-            td(_"Spiritual Gems"; :colspan => 2),
-            td(meeting["spiritual_gems"]),
+            time(4),
+            td(_"Bible Reading"; :colspan => 3),
+            td(_"Student", class="title"),
+            td(meeting["bible_reading"]["reader"], class="assigned"),
         ]),
         tr([
-            td(time(4)),
-            td(_"Bible Reading"),
-            td(_"Student"),
-            td(meeting["bible_reading"]["reader"]),
+            td(img(src="apply.svg"))
+            td(span(_"APPLY YOURSELF TO THE FIELD MINISTRY"); :colspan => 3)
+        ], class="apply"),
+        tr([
+            time(3),
+            td(_"Initial Call"),
+            td(_"Student", class="title"),
+            td(meeting["initial_call"]["student"], class="assigned"),
+            td(_"Helper", class="title"),
+            td(meeting["initial_call"]["assistant"], class="assigned"),
         ]),
         tr([
-            td(_"APPLY YOURSELF TO THE FIELD MINISTRY"; :colspan => 4)
+            time(4),
+            td(_"Return Visit"),
+            td(_"Student", class="title"),
+            td(meeting["return_visit"]["student"], class="assigned"),
+            td(_"Helper", class="title"),
+            td(meeting["return_visit"]["assistant"], class="assigned"),
         ]),
         tr([
-            td(time(3); :rowspan => 2),
-            td(_"Initial Call"; :rowspan => 2),
-            td(_"Student"),
-            td(meeting["initial_call"]["student"]),
+            time(5),
+            td(_"Bible Study"),
+            td(_"Student", class="title"),
+            td(meeting["bible_study"]["student"], class="assigned"),
+            td(_"Helper", class="title"),
+            td(meeting["bible_study"]["assistant"], class="assigned"),
         ]),
         tr([
-            td(_"Helper"),
-            td(meeting["initial_call"]["assistant"]),
+            td(img(src="living.svg"))
+            td(span(_"LIVING AS CHRISTIANS"); :colspan => 6)
+        ], class="living"),
+        tr([
+            time(5),
+            td(@sprintf "%s: %s" _"Song" string(meeting["middle_song"]); :colspan => 5)
+        ]),
+        [tr([time(part["time"]), td(part["theme"]; :colspan => 4), td(part["speaker"], class="assigned")]) for (part) in meeting["living_as_christians"]],
+        tr([
+            time(30),
+            td(_"Congregation Bible Study"),
+            td(_"Conductor", class="title"),
+            td(meeting["congregation_bible_study"]["conductor"], class="assigned"),
+            td(_"Reader", class="title"),
+            td(meeting["congregation_bible_study"]["reader"], class="assigned"),
         ]),
         tr([
-            td(time(4); :rowspan => 2),
-            td(_"Return Visit"; :rowspan => 2),
-            td(_"Student"),
-            td(meeting["return_visit"]["student"]),
-        ]),
-        tr([
-            td(_"Helper"),
-            td(meeting["return_visit"]["assistant"]),
-        ]),
-        tr([
-            td(time(5); :rowspan => 2),
-            td(_"Bible Study"; :rowspan => 2),
-            td(_"Student"),
-            td(meeting["bible_study"]["student"]),
-        ]),
-        tr([
-            td(_"Helper"),
-            td(meeting["bible_study"]["assistant"]),
-        ]),
-        tr([
-            td(_"LIVING AS CHRISTIANS"; :colspan => 4)
+            time(1),
+            td(_"Concluding Comments"; :colspan => 5)
         ]),
         tr([
             time(5),
