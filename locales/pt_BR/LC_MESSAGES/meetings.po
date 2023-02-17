@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-02-01 18:24+0100\n"
+"POT-Creation-Date: 2023-02-17 13:41+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -14,77 +14,84 @@ msgstr ""
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SearchPath-0: meetings.jl\n"
 
-#: meetings.jl:11
-msgid "Hello, World!"
-msgstr "Olá, Mundo!"
+#: meetings.jl:8
+msgid "Song"
+msgstr "Cântico"
 
-#: meetings.jl:32
+#: meetings.jl:39
 msgid "Chairman"
 msgstr "Presidente"
 
-#: meetings.jl:41
+#: meetings.jl:48
 msgid "Opening Comments"
 msgstr "Comentários iniciais"
 
-#: meetings.jl:44
+#: meetings.jl:52
 msgid "TREASURES FROM GOD'S WORD"
 msgstr "TESOUROS DA PALAVRA DE DEUS"
 
-#: meetings.jl:53
+#: meetings.jl:61
 msgid "Spiritual Gems"
 msgstr "Joias espirituais"
 
-#: meetings.jl:58
-msgid "Bible Reading"
-msgstr "Leitura da Bíblia"
-
-#: meetings.jl:59 meetings.jl:68 meetings.jl:78 meetings.jl:88
+#: meetings.jl:67 meetings.jl:77 meetings.jl:85 meetings.jl:93
 msgid "Student"
 msgstr "Estudante"
 
-#: meetings.jl:63
+#: meetings.jl:66
+msgid "Bible Reading"
+msgstr "Leitura da Bíblia"
+
+#: meetings.jl:72
 msgid "APPLY YOURSELF TO THE FIELD MINISTRY"
 msgstr "FAÇA SEU MELHOR NO MINISTÉRIO"
 
-#: meetings.jl:67
+#: meetings.jl:76
 msgid "Initial Call"
 msgstr "Primeira conversa"
 
-#: meetings.jl:72 meetings.jl:82 meetings.jl:92
+#: meetings.jl:79 meetings.jl:87 meetings.jl:95
 msgid "Helper"
 msgstr "Ajudante"
 
-#: meetings.jl:77
+#: meetings.jl:84
 msgid "Return Visit"
 msgstr "Revisita"
 
-#: meetings.jl:87
+#: meetings.jl:92
 msgid "Bible Study"
 msgstr "Estudo bíblico"
 
-#: meetings.jl:96
+#: meetings.jl:100
 msgid "LIVING AS CHRISTIANS"
 msgstr "NOSSA VIDA CRISTÃ"
 
-#: meetings.jl:106
-msgid "Conductor"
-msgstr "Dirigente"
-
-#: meetings.jl:105
+#: meetings.jl:109
 msgid "Congregation Bible Study"
 msgstr "Estudo bíblico de congregação"
 
 #: meetings.jl:110
+msgid "Conductor"
+msgstr "Dirigente"
+
+#: meetings.jl:112
 msgid "Reader"
 msgstr "Leitor"
 
-#: meetings.jl:115
+#: meetings.jl:117
 msgid "Concluding Comments"
 msgstr "Comentários finais"
 
-#: meetings.jl:120
+#: meetings.jl:122
 msgid "Prayer"
 msgstr "Oração"
+
+#: meetings.jl:141
+msgid "Midweek Meeting Schedule"
+msgstr "Reunião de meio de semana"
+
+#~ msgid "Hello, World!"
+#~ msgstr "Olá, Mundo!"
 
 #~ msgid "{1} day"
 #~ msgid_plural "{1} days"
