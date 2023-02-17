@@ -25,14 +25,13 @@ function time(duration)
     return td(Dates.format(current, "HH:MM"), class="time")
 end
 
-@tags table tr td
+@tags table tr td style head body html link thead tbody hr img span title
 
-json_file = open("meetings.json")
-meetings = JSON.parse(json_file)
-close(json_file)
+meetings = Vector{Hyperscript.Node}()
 
-for meeting in meetings
-    doc = table(
+for meeting in schedule["meetings"]
+    global start = Time(parse(Int64, hour), parse(Int64, min), 00)
+    push!(meetings, table(
         tr([
             td(meeting["date"]),
             td(meeting["theme"]),
