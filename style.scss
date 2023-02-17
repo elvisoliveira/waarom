@@ -1,0 +1,102 @@
+$red: #942926;
+$yellow: #9d5d07;
+$grey: #626262;
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Fira Sans", "Open Sans", sans-serif;
+    font-size: 11px;
+}
+
+table {
+    width: 100%;
+    &.meeting {
+        border-spacing: 10px;
+    }
+    &.schedule {
+        > tbody {
+            > tr:nth-child(even) {
+                page-break-after: always;
+            }
+        }
+    }
+    thead {
+        td {
+            font-weight: bold;
+        }
+        tr:nth-child(1) td {
+            font-family: "Oranienbaum";
+            font-size: 20px;
+            text-align: right;
+        }
+        tr:nth-child(2) td {
+            font-size: 15px;
+            text-transform: uppercase;
+        }
+    }
+}
+
+tr.apply, tr.living, tr.treasures {
+    td {
+        &:nth-child(1) {
+            padding: 5px;
+            display: flex;
+            justify-content: center;
+        }
+        img {
+            float: left;
+            max-height: 30px;
+        }
+        span {
+            font-weight: 700;
+            font-size: 16px;
+            width: 140px;
+            float: left;
+            line-height: 16px;
+            white-space: normal;
+        }
+    }
+}
+tr.treasures {
+    td {
+        &:nth-child(1) { background-color: $grey; }
+        span { color: $grey; }
+    }
+}
+
+tr.apply {
+    td {
+        &:nth-child(1) { background-color: $red; }
+        span { color: $red; }
+    }
+}
+
+tr.living {
+    td {
+        &:nth-child(1) { background-color: $yellow; }
+        span { color: $yellow; }
+    }
+}
+
+td.time {
+    width: 40px;
+}
+td.time, td.title {
+    color: $grey;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+td.title, td.assigned {
+    width: 0.1%;
+    white-space: nowrap;
+}
+td.title {
+    text-align: right;
+}
+td.label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
