@@ -1,22 +1,28 @@
 using JSON
+using Sass
 using Printf
 using Hyperscript
 using Dates
 using Gettext
 
-locales = joinpath(dirname(@__FILE__), "locales")
-
-bindtextdomain("meetings", locales)
+bindtextdomain("meetings", joinpath(dirname(@__FILE__), "locales"))
 textdomain("meetings")
 
-println(_"Hello, World!")
+Sass.compile_file(
+    joinpath(dirname(@__FILE__), "style.scss"),
+    joinpath(dirname(@__FILE__), "style.css")
+)
 
-start = Dates.DateTime(2023, 2, 1, 19, 15)
+json_file = open("meetings.json")
+schedule = JSON.parse(json_file)
+close(json_file)
+
+hour, min = split(schedule["time"], ":")
 
 function time(duration)
     current = start;
     global start = start + Dates.Minute(duration)
-    return Dates.format(current, "HH:MM")
+    return td(Dates.format(current, "HH:MM"), class="time")
 end
 
 @tags table tr td
