@@ -6,13 +6,20 @@ $grey: #626262;
     margin: 0;
     padding: 0;
     font-family: "Fira Sans", "Open Sans", sans-serif;
-    font-size: 11px;
+    font-size: 12px;
 }
 
 table {
     width: 100%;
     &.meeting {
-        border-spacing: 10px;
+        border-spacing: 8px;
+        > tbody {
+            > tr:not(.apply, .living, .treasures, .head) {
+                &:nth-child(even) {
+                    background-color: #DDD;
+                }
+            }
+        }
     }
     &.schedule {
         > tbody {
@@ -79,12 +86,18 @@ tr.living {
     }
 }
 
+tr.head {
+    td.label {
+        font-size: 14px;
+    }
+}
+
 td.time {
     width: 40px;
 }
 td.time, td.title {
     color: $grey;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: bold;
     text-align: center;
 }

@@ -1,4 +1,8 @@
 *.html
 *.css
 *.pdf
+
+*.json
+!meetings.json
+
 Manifest.toml

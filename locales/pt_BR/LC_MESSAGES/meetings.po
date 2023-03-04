@@ -95,8 +95,3 @@ msgstr "Discurso"
 
 #~ msgid "Hello, World!"
 #~ msgstr "Olá, Mundo!"
-
-#~ msgid "{1} day"
-#~ msgid_plural "{1} days"
-#~ msgstr[0] "{1} jour"
-#~ msgstr[1] "{1} jours"

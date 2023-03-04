@@ -1,5 +1,10 @@
 using JSON, HTTP, Sockets, Sass, Printf, Hyperscript, Dates, Gettext
 
+# Specify the directory where the translation files for the "meetings" domain can be found.
+# This path will be used to look for the .mo files that contain the translations.
+bindtextdomain("meetings", joinpath(dirname(@__FILE__), "locales"))
+textdomain("meetings") #  Specify the current domain to be used for translating messages
+
 # Constants that are used to configure an HTTP server
 const HOST = ip"0.0.0.0"
 const PORT = 8888
@@ -24,11 +29,6 @@ end
 @tags table tr td style head body html link thead tbody hr img span title meta
 
 function main()
-    # Specify the directory where the translation files for the "meetings" domain can be found.
-    # This path will be used to look for the .mo files that contain the translations.
-    bindtextdomain("meetings", joinpath(dirname(@__FILE__), "locales"))
-    textdomain("meetings") #  Specify the current domain to be used for translating messages
-
     # Compile a Sass file into a CSS file
     Sass.compile_file(
         joinpath(dirname(@__FILE__), "style.scss"),
@@ -52,7 +52,7 @@ function main()
                 td(@sprintf "%s | %s" meeting["date"] meeting["theme"]; :colspan => 4, class="label"),
                 td(_"Chairman", class="title"),
                 td(meeting["chairman"], class="assigned")
-            ]),
+            ], class="head"),
             tr([
                 time(5),
                 td(@sprintf "%s: %s" _"Song" string(meeting["opening_song"]); :colspan => 5)
@@ -87,7 +87,7 @@ function main()
             ], class="apply"),
             tr([
                 time(5),
-                td(_"Initial Call"),
+                td(haskey(meeting["initial_call"], "label") ? meeting["initial_call"]["label"] : _"Initial Call"),
                 td(_"Student", class="title"),
                 td(meeting["initial_call"]["student"], class="assigned"),
                 td(_"Helper", class="title"),
@@ -95,7 +95,7 @@ function main()
             ]),
             tr([
                 time(6),
-                td(_"Return Visit"),
+                td(haskey(meeting["return_visit"], "label") ? meeting["return_visit"]["label"] : _"Return Visit"),
                 td(_"Student", class="title"),
                 td(meeting["return_visit"]["student"], class="assigned"),
                 td(_"Helper", class="title"),
@@ -103,14 +103,14 @@ function main()
             ]),
             tr(haskey(meeting, "bible_study") ? [
                 time(6),
-                td(_"Bible Study"),
+                td(haskey(meeting["bible_study"], "label") ? meeting["bible_study"]["label"] : _"Bible Study"),
                 td(_"Student", class="title"),
                 td(meeting["bible_study"]["student"], class="assigned"),
                 td(_"Helper", class="title"),
                 td(meeting["bible_study"]["assistant"], class="assigned"),
                ] : [
                 time(6),
-                td(@sprintf "%s: %s" _"Talk" meeting["talk"]["theme"]),
+                td(@sprintf "%s: %s" _"Talk" meeting["talk"]["theme"]; :colspan => 3),
                 td(_"Student", class="title"),
                 td(meeting["talk"]["student"], class="assigned")
             ]),
@@ -181,12 +181,24 @@ function set_endpoint(path, callback)
     HTTP.register!(ROUTER, "GET", "/" * path, req->HTTP.Response(200, callback))
 end
 
-# Routes definitions
-set_endpoint("", main())
-
 for FILE in FILES
     set_endpoint(FILE, get_static_resource(FILE))
 end
 
 # Start server
-HTTP.serve(ROUTER, HOST, PORT)
+function start_server()
+    server_task = @async try
+        # Routes definitions
+        set_endpoint("", main())
+
+        HTTP.serve(ROUTER, HOST, PORT)
+    catch e
+        e === :stop || rethrow()
+    end
+    errormonitor(server_task)
+end
+
+function stop_server(task)
+    schedule(task, :stop, error=true)
+    wait(task)
+end
