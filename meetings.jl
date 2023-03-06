@@ -1,4 +1,4 @@
-using JSON, HTTP, Sockets, Sass, Printf, Hyperscript, Dates, Gettext
+using JSON, HTTP, Sockets, Printf, Hyperscript, Dates, Gettext
 
 # Specify the directory where the translation files for the "meetings" domain can be found.
 # This path will be used to look for the .mo files that contain the translations.
@@ -29,12 +29,6 @@ end
 @tags table tr td style head body html link thead tbody hr img span title meta
 
 function main()
-    # Compile a Sass file into a CSS file
-    Sass.compile_file(
-        joinpath(dirname(@__FILE__), "style.scss"),
-        joinpath(dirname(@__FILE__), "style.css")
-    )
-
     # Opens a JSON file and parses its contents
     json_file = open("meetings.json")
     schedule = JSON.parse(json_file)
