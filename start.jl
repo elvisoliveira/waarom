@@ -8,7 +8,7 @@ server_task = Ref(start_server())
 entr(["meetings.json", "meetings.jl", "style.scss"], [], postpone=true) do
     stop_server(server_task[])
     # Compile a Sass file into a CSS file
-    Sass.compile_file(
+    @async Sass.compile_file(
         joinpath(dirname(@__FILE__), "style.scss"),
         joinpath(dirname(@__FILE__), "style.css")
     )

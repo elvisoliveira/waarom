@@ -27,10 +27,14 @@ function time(duration)
 end
 
 @tags table tr td style head body html link thead tbody hr img span title meta
+@tags_noescape div
 
-function main()
+function main(req::HTTP.Request)
+    target = HTTP.Messages.getfield(req, :target)
+    params = HTTP.queryparams(HTTP.URI(target))
+
     # Opens a JSON file and parses its contents
-    json_file = open("meetings.json")
+    json_file = open(haskey(params, "file") ? params["file"] : "meetings.json")
     schedule = JSON.parse(json_file)
     close(json_file)
 
@@ -41,7 +45,7 @@ function main()
     meetings = Vector{Hyperscript.Node}()
     for meeting in schedule["meetings"]
         global start = Time(parse(Int64, hour), parse(Int64, min), 00)
-        push!(meetings, table(
+        push!(meetings, haskey(meeting, "message") ? div(meeting["message"], class="message") : table(
             tr([
                 td(@sprintf "%s | %s" meeting["date"] meeting["theme"]; :colspan => 4, class="label"),
                 td(_"Chairman", class="title"),
@@ -171,19 +175,15 @@ function get_static_resource(FILE)
     return bytes
 end
 
-function set_endpoint(path, callback)
-    HTTP.register!(ROUTER, "GET", "/" * path, req->HTTP.Response(200, callback))
-end
-
 for FILE in FILES
-    set_endpoint(FILE, get_static_resource(FILE))
+    HTTP.register!(ROUTER, "GET", "/" * FILE, req->HTTP.Response(200, get_static_resource(FILE)))
 end
 
 # Start server
 function start_server()
     server_task = @async try
         # Routes definitions
-        set_endpoint("", main())
+        HTTP.register!(ROUTER, "GET", "/", req->HTTP.Response(200, main(req)))
 
         HTTP.serve(ROUTER, HOST, PORT)
     catch e

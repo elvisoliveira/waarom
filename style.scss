@@ -58,7 +58,7 @@ tr.apply, tr.living, tr.treasures {
         span {
             font-weight: 700;
             font-size: 16px;
-            width: 140px;
+            width: 160px;
             float: left;
             line-height: 16px;
             white-space: normal;
@@ -112,4 +112,18 @@ td.title {
 td.label {
     font-weight: bold;
     text-transform: uppercase;
+}
+
+div.message {
+    background-color: #DDD;
+    font-size: 22px;
+    margin: 8px;
+    padding: 29px 0px;
+    text-align: center;
+    p {
+        font-size: 50px;
+    }
+    &, p {
+        font-family: "Oranienbaum";
+    }
 }
