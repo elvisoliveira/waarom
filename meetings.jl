@@ -83,31 +83,10 @@ function main(req::HTTP.Request)
                 td(img(src="apply.svg"))
                 td(span(_"APPLY YOURSELF TO THE FIELD MINISTRY"); :colspan => 3)
             ], class="apply"),
-            tr([
-                time(5),
-                td(haskey(meeting["initial_call"], "label") ? meeting["initial_call"]["label"] : _"Initial Call"),
-                td(_"Student", class="title"),
-                td(meeting["initial_call"]["student"], class="assigned"),
-                td(_"Helper", class="title"),
-                td(meeting["initial_call"]["assistant"], class="assigned"),
-            ]),
-            tr([
-                time(6),
-                td(haskey(meeting["return_visit"], "label") ? meeting["return_visit"]["label"] : _"Return Visit"),
-                td(_"Student", class="title"),
-                td(meeting["return_visit"]["student"], class="assigned"),
-                td(_"Helper", class="title"),
-                td(meeting["return_visit"]["assistant"], class="assigned"),
-            ]),
-            tr(haskey(meeting, "bible_study") ? [
-                time(6),
-                td(haskey(meeting["bible_study"], "label") ? meeting["bible_study"]["label"] : _"Bible Study"),
-                td(_"Student", class="title"),
-                td(meeting["bible_study"]["student"], class="assigned"),
-                td(_"Helper", class="title"),
-                td(meeting["bible_study"]["assistant"], class="assigned"),
-               ] : [
-                time(6),
+            tr(student(meeting, "initial_call", _"Initial Call", 3 + 1)),
+            tr(student(meeting, "return_visit", _"Return Visit", 4 + 1)),
+            tr(haskey(meeting, "bible_study") ? student(meeting, "bible_study" , _"Bible Study" , 5 + 1) : [
+                time(5 + 1),
                 td(@sprintf "%s: %s" _"Talk" meeting["talk"]["theme"]; :colspan => 3),
                 td(_"Student", class="title"),
                 td(meeting["talk"]["student"], class="assigned")
@@ -121,14 +100,16 @@ function main(req::HTTP.Request)
                 td(@sprintf "%s: %s" _"Song" string(meeting["middle_song"]); :colspan => 5)
             ]),
             [tr([time(part["time"]), td(part["theme"]; :colspan => 4), td(part["speaker"], class="assigned")]) for (part) in meeting["living_as_christians"]],
-            tr([
+            # The 30-minute service talk delivered by the circuit overseer will
+            # substitute the Congregation Bible Study portion of the Living as
+            # Christians section when the congregation is visited by the circuit overseer.
+            haskey(meeting, "congregation_bible_study") ? tr([
                 time(30),
-                td(_"Congregation Bible Study"),
+                td(_"Congregation Bible Study"; :colspan => haskey(meeting["congregation_bible_study"], "reader") ? 0 : 3),
                 td(_"Conductor", class="title"),
                 td(meeting["congregation_bible_study"]["conductor"], class="assigned"),
-                td(_"Reader", class="title"),
-                td(meeting["congregation_bible_study"]["reader"], class="assigned"),
-            ]),
+                haskey(meeting["congregation_bible_study"], "reader") ? [td(_"Reader", class="title"), td(meeting["congregation_bible_study"]["reader"], class="assigned")] : []
+            ]) : [],
             tr([
                 time(1),
                 td(_"Concluding Comments"; :colspan => 5)
@@ -138,7 +119,8 @@ function main(req::HTTP.Request)
                 td(@sprintf "%s: %s" _"Song" string(meeting["closing_song"]); :colspan => 3),
                 td(_"Prayer", class="title"),
                 td(meeting["closing_prayer"], class="assigned"),
-            ]), class="meeting"
+            ]),
+            tr(td(hr(); :colspan => 6)), class="meeting"
         ))
     end
     return string(
@@ -166,6 +148,19 @@ function main(req::HTTP.Request)
             )
         )
     )
+end
+
+function hasprint(dict, key, default)
+    return haskey(dict, key) ? dict[key] : default
+end
+
+function student(meeting, index, label, minutes)
+    return [
+        time(minutes),
+        td(hasprint(meeting[index], "label", label)),
+        haskey(meeting[index], "student")   ? [td(_"Student", class="title"), td(meeting[index]["student"]  , class="assigned")] : [td(), td()],
+        haskey(meeting[index], "assistant") ? [td(_"Helper" , class="title"), td(meeting[index]["assistant"], class="assigned")] : [td(), td()]
+    ]
 end
 
 function get_static_resource(FILE)
