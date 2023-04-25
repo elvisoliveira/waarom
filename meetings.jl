@@ -114,6 +114,11 @@ function main(req::HTTP.Request)
                 time(1),
                 td(_"Concluding Comments"; :colspan => 5)
             ]),
+            haskey(meeting, "service_talk") ? tr([
+                time(30),
+                td(meeting["service_talk"]["theme"]; :colspan => 4),
+                td(meeting["service_talk"]["speaker"], class="assigned")
+            ]) : [],
             tr([
                 time(5),
                 td(@sprintf "%s: %s" _"Song" string(meeting["closing_song"]); :colspan => 3),
