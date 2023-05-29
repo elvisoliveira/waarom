@@ -26,7 +26,7 @@ function time(duration)
     return td(Dates.format(current, "HH:MM"), class="time")
 end
 
-@tags table tr td style head body html link thead tbody hr img span title meta
+@tags table tr td style head body html link thead tbody hr img span title meta script
 @tags_noescape div
 
 function main(req::HTTP.Request)
@@ -142,12 +142,11 @@ function main(req::HTTP.Request)
             body(
                 table(
                     thead(
-                        tr(td(_"Midweek Meeting Schedule")),
-                        tr(td(schedule["congregation"])),
-                        tr(td(hr()))
+                        tr([td(schedule["congregation"]), td(_"Midweek Meeting Schedule")]),
+                        tr(td(hr(); :colspan => 2))
                     ),
                     tbody(
-                        [tr([td(meeting)]) for (meeting) in meetings]
+                        [tr(td([meeting], span(_"Page", class="page"); :colspan => 2)) for (meeting) in meetings]
                     ), class="schedule"
                 )
             )

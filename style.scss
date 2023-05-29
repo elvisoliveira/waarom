@@ -23,23 +23,41 @@ table {
     }
     &.schedule {
         > tbody {
-            > tr:nth-child(even) {
-                page-break-after: always;
+            counter-reset: page;
+            > tr {
+                span.page {
+                    display: none;
+                    text-align: right;
+                    padding: 0 8px;
+                }
+                &:nth-child(even) {
+                    page-break-after: always;
+                    span.page {
+                        display: block;
+                        &:after {
+                            counter-increment: page;
+                            content: " " counter(page);
+                        }
+                    }
+                }
             }
         }
     }
     thead {
-        td {
-            font-weight: bold;
-        }
-        tr:nth-child(1) td {
-            font-family: "Oranienbaum";
-            font-size: 20px;
-            text-align: right;
-        }
-        tr:nth-child(2) td {
-            font-size: 15px;
-            text-transform: uppercase;
+        tr {
+            td {
+                font-weight: bold;
+                &:nth-child(2) {
+                    font-family: "Oranienbaum";
+                    font-size: 25px;
+                    text-align: right;
+                }
+                &:nth-child(1) {
+                    font-size: 15px;
+                    text-transform: uppercase;
+                    vertical-align: bottom;
+                }
+            }
         }
     }
 }

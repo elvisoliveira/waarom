@@ -18,3 +18,8 @@ To compile the translation file
 cd locales/pt_BR/LC_MESSAGES
 msgfmt meetings.po -o meetings.mo
 ```
+
+# Reminders
+
+- Check the letters for chanegs in meeting schedule
+- Some congregation bible studies don't need reader assignment
