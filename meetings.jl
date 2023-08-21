@@ -34,7 +34,7 @@ function main(req::HTTP.Request)
     params = HTTP.queryparams(HTTP.URI(target))
 
     # Opens a JSON file and parses its contents
-    json_file = open(haskey(params, "file") ? params["file"] : "meetings.json")
+    json_file = open(haskey(params, "file") ? @sprintf("waarom-explorer/data/%s", params["file"]) : "meetings.json")
     schedule = JSON.parse(json_file)
     close(json_file)
 

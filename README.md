@@ -21,5 +21,6 @@ msgfmt meetings.po -o meetings.mo
 
 # Reminders
 
-- Check the letters for chanegs in meeting schedule
-- Some congregation bible studies don't need reader assignment
+- Check the letters for chanegs in meeting schedule;
+- Some congregation bible studies don't need reader assignment;
+- Verify whether the part in the "Living as Christians" section needs to be assigned to a particular member of the Congregation Service Committee (Coordinator of the body of elders, secretary, and service overseer).
