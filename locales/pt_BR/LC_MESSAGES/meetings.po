@@ -68,7 +68,7 @@ msgid "Prayer"
 msgstr "Oração"
 
 msgid "Midweek Meeting Schedule"
-msgstr "Reunião de meio de semana"
+msgstr "Reunião do meio de semana"
 
 msgid "Talk"
 msgstr "Discurso"

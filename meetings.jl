@@ -162,8 +162,8 @@ function student(meeting, index, label, minutes)
     return [
         time(minutes),
         td(hasprint(meeting[index], "label", label)),
-        haskey(meeting[index], "student")   ? [td(_"Student", class="title"), td(meeting[index]["student"]  , class="assigned")] : [td(), td()],
-        haskey(meeting[index], "assistant") ? [td(_"Helper" , class="title"), td(meeting[index]["assistant"], class="assigned")] : [td(), td()]
+        haskey(meeting[index], "student")   ? [td(_"Student", class="title"), td(split(meeting[index]["student"], '|')[end]  , class="assigned")] : [td(), td()],
+        haskey(meeting[index], "assistant") ? [td(_"Helper" , class="title"), td(split(meeting[index]["assistant"], '|')[end], class="assigned")] : [td(), td()]
     ]
 end
 
